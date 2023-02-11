@@ -12,6 +12,7 @@ jobs:
         projectBaseDir: local-one
         host: http://localhost:9000
         login: sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
+        password: admin123
 # variables:
 #   SONARQUBE_ARGUMENTS_PREVIEW: -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74 --stacktrace -Dsonar.analysis.mode=preview -Dsonar.projectKey=LOCAL-1 -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
 
