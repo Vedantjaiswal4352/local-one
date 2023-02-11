@@ -7,38 +7,39 @@ on:
   branch_protection_rule:
     types: [created, edited, deleted]
 
-before_script:
-  - python --version
-  - python -c 'import struct;print(8* struct.calcsize("p"))'
-  - pip install --upgrade pip
-  - pip install --upgrade setuptools
-  - pip install pytest
+jobs: 
+  before_script:
+    - python --version
+    - python -c 'import struct;print(8* struct.calcsize("p"))'
+    - pip install --upgrade pip
+    - pip install --upgrade setuptools
+    - pip install pytest
 
-stages:
-    - Static Analysis
-    - Test
+  stages:
+      - Static Analysis
+      - Test
 
-mypy:
-    stage: Static Analysis
-    script:
-    - python -m pip install mypy
-    - pwd
-    - ls -l
+  mypy:
+      stage: Static Analysis
+      script:
+      - python -m pip install mypy
+      - pwd
+      - ls -l
 
-flake8:
-    stage: Static Analysis
-    script:
-    - python -m pip install flake8
+  flake8:
+      stage: Static Analysis
+      script:
+      - python -m pip install flake8
 
-pylint:
-    stage: Static Analysis
-    script:
-    - pip install pylint
-test:
-    stage: Test
-    script:
-    - pwd
-    - ls -l
-    - export PYTHONPATH="$PYTHONPATH:."
-    - python -c "import sys;print(sys.path)"
-    - sonar-scanner   -Dsonar.projectKey=LOCAL-1   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
+  pylint:
+      stage: Static Analysis
+      script:
+      - pip install pylint
+  test:
+      stage: Test
+      script:
+      - pwd
+      - ls -l
+      - export PYTHONPATH="$PYTHONPATH:."
+      - python -c "import sys;print(sys.path)"
+      - sonar-scanner   -Dsonar.projectKey=LOCAL-1   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
