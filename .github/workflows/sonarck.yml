@@ -3,7 +3,9 @@ variables:
 
 image: "python:3.7"
 
-on : commit
+on:
+  branch_protection_rule:
+    types: [created, edited, deleted]
 
 before_script:
   - python --version
