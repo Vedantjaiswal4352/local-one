@@ -1,45 +1,59 @@
-variables:
-  SONARQUBE_ARGUMENTS_PREVIEW: -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74 --stacktrace -Dsonar.analysis.mode=preview -Dsonar.projectKey=LOCAL-1 -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+on: push
+name: Main Workflow
+jobs:
+  sonarQubeTrigger:
+    name: SonarQube Trigger
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@master
+      with:
+        projectBaseDir: local-one
+        host: http://localhost:9000
+        login: sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
+# variables:
+#   SONARQUBE_ARGUMENTS_PREVIEW: -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74 --stacktrace -Dsonar.analysis.mode=preview -Dsonar.projectKey=LOCAL-1 -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
 
-image: "python:3.7"
+# image: "python:3.7"
 
-on:
-  branch_protection_rule:
-    types: [created, edited, deleted]
+# on:
+#   branch_protection_rule:
+#     types: [created, edited, deleted]
 
-jobs: 
-  before_script:
-    - python --version
-    - python -c 'import struct;print(8* struct.calcsize("p"))'
-    - pip install --upgrade pip
-    - pip install --upgrade setuptools
-    - pip install pytest
+# jobs: 
+#   before_script:
+#     - python --version
+#     - python -c 'import struct;print(8* struct.calcsize("p"))'
+#     - pip install --upgrade pip
+#     - pip install --upgrade setuptools
+#     - pip install pytest
 
-  stages:
-      - Static Analysis
-      - Test
+#   stages:
+#       - Static Analysis
+#       - Test
 
-  mypy:
-      stage: Static Analysis
-      script:
-      - python -m pip install mypy
-      - pwd
-      - ls -l
+#   mypy:
+#       stage: Static Analysis
+#       script:
+#       - python -m pip install mypy
+#       - pwd
+#       - ls -l
 
-  flake8:
-      stage: Static Analysis
-      script:
-      - python -m pip install flake8
+#   flake8:
+#       stage: Static Analysis
+#       script:
+#       - python -m pip install flake8
 
-  pylint:
-      stage: Static Analysis
-      script:
-      - pip install pylint
-  test:
-      stage: Test
-      script:
-      - pwd
-      - ls -l
-      - export PYTHONPATH="$PYTHONPATH:."
-      - python -c "import sys;print(sys.path)"
-      - sonar-scanner   -Dsonar.projectKey=LOCAL-1   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
+#   pylint:
+#       stage: Static Analysis
+#       script:
+#       - pip install pylint
+#   test:
+#       stage: Test
+#       script:
+#       - pwd
+#       - ls -l
+#       - export PYTHONPATH="$PYTHONPATH:."
+#       - python -c "import sys;print(sys.path)"
+#       - sonar-scanner   -Dsonar.projectKey=LOCAL-1   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=sqp_d46284c972a574cf8ff3595c4fed0b0a9aa42b74
