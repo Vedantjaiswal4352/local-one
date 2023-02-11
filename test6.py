@@ -8,3 +8,5 @@ plt.show()
 x = [50,100,150]
 for i in x:
     print(x**2)
+for k in range(6,100):
+    print("j")
