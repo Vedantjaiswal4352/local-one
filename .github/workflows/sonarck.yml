@@ -3,6 +3,7 @@ variables:
 
 image: "python:3.7"
 
+on : commit
 
 before_script:
   - python --version
