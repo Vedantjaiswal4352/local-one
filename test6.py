@@ -5,3 +5,6 @@ fig1, ax1 = plt.subplots()
 ax1.pie(sizes, labels=Partition, autopct='%1.1f%%', shadow=True, startangle=90)
 ax1.axis('equal')
 plt.show()
+x = [50,100,150]
+for i in x:
+    print(x**2)
