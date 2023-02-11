@@ -1,0 +1,4 @@
+create table accounttable
+(accno int primary key auto_increment,
+name varchar(10),
+balance int)auto_increment=1000;
